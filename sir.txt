@@ -1,0 +1,119 @@
+https://fontawesome.com/v5/search?q=box&o=r&m=free
+
+
+
+Auth:
+go to env
+===========
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+make following commands
+======================
+php artisan migrate
+composer require laravel/ui
+php artisan ui bootstrap
+npm install
+npm run dev
+php artisan ui bootstrap --auth
+
+
+
+Payment Gateway
+----------------
+https://laravel.com/docs/11.x/billing
+https://www.cloudways.com/blog/laravel-stripe-integration/
+https://wpwebinfotech.com/blog/laravel-and-stripe-integration/
+https://medium.com/@maulanayusupp/how-to-integrate-stripe-payment-in-laravel-630b78db38e5
+https://www.positronx.io/integrate-stripe-payment-gateway-in-laravel-application/
+https://www.ultimateakash.com/blog-details/IixTJGAKYAo=/How-to-Integrate-Stripe-Payment-Gateway-In-Laravel-2022
+
+
+Git Auth
+---------
+https://laravel.com/docs/11.x/socialite
+
+Google Auth
+----------------
+https://medium.com/@mimranisrar6/how-to-add-a-google-login-using-socialite-in-laravel-21f6eebafcec
+
+Facebook Auth
+-------------
+https://kenpachi-zaraki.medium.com/adding-facebook-authentication-to-a-laravel-website-2afde9297177
+https://medium.com/@sagarmaheshwary31/facebook-login-with-laravel-and-socialite-e08bdee1268d
+https://dev.to/shanisingh03/how-to-login-with-facebook-in-laravel-124e
+
+JWT:
+----
+https://medium.com/@demian.kostelny/install-jwt-in-laravel-app-2023-guide-for-beginners-94f7245ce6bd
+https://medium.com/@niravdchavda/multiple-authentication-guards-for-laravel-restful-apis-jwt-617dfa24368d
+https://stackoverflow.com/questions/61388525/how-to-call-apiresource-with-middleware-in-my-routes
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResources([
+        'user' => 'API\UserController',
+        'posts' => 'API\PostController'
+    ]);
+});
+
+
+Ref:
+https://www.itsolutionstuff.com/post/laravel-10-bootstrap-auth-scaffolding-tutorialexample.html#google_vignette
+https://medium.com/@online-web-tutor/laravel-10-authentication-with-laravel-ui-tutorial-ce163cce0af7
+https://larainfo.com/blogs/how-to-use-laravel-ui-authentication-in-laravel-10
+https://onlinecode.org/laravel-10-authentication-tutorial/
+https://www.techiediaries.com/laravel-10-bootstrap-auth-scaffolding/
+https://www.cloudways.com/blog/setup-laravel-login-authentication/
+https://techvblogs.com/blog/laravel-9-authentication-tutorial
+https://www.allphptricks.com/laravel-custom-user-registration-and-login-tutorial/
+
+
+
+Clear all caches in Laravel
+===========================
+php artisan optimize:clear
+php artisan cache:clear
+php artisan config:clear
+php artisan event:clear
+php artisan route:clear
+php artisan schedule:clear-cache
+php artisan view:clear
+php artisan make:controller Api/ProductController --api
+
+
+to disable cache set to ENV
+================
+CACHE_DRIVER=null
+
+
+
+Create your own library:helpers
+-------------------------------
+
+Create a helpers.php file in your app folder and load it up with composer:
+
+"autoload": {
+    "classmap": [
+        ...
+    ],
+    "psr-4": {
+        "App\\": "app/"
+    },
+    "files": [
+        "app/Helpers/html_helper.php" // <---- ADD THIS
+    ]
+},
+After adding that to your composer.json file, run the following command:
+
+composer dump-autoload
+
+
+Article:
+https://jurin.medium.com/make-laravel-api-even-more-flexible-with-artisan-resource-3f2a0aa322f
+
+Create api Controller
+php artisan make:controller Api/ProductController --api
