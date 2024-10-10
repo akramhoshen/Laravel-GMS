@@ -151,7 +151,7 @@
                                 <div class="">
                                     @php
                                     $mssizes_data = [];
-                                    $has_xxs = $has_xs = $has_s = $has_m = $has_l = $has_xl = $has_xxl = false;
+                                    $has_xxs = $has_xs = $has_s = $has_m = $has_l = $has_xl = $has_xxl = false; //for check measurement size data and showing column based on this
                                     foreach ($mssizes as $row)
                                     {
                                         $mssizes_data[$row->code]['code']       = $row->code;
