@@ -123,7 +123,7 @@
                                 <div class="px-3 pt-2">
                                     <div class="row">
                                     @if($attachments->isNotEmpty())
-                                            @foreach($attachments as $attachment)
+                                        @foreach($attachments as $attachment)
                                         <div class="col-xl-4 col-md-6 my-2 mx-auto text-center">
                                             <div class="card bg-transparent rounded-0 shadow-none">
                                                 <strong><u>{{$attachment->name}}</u></strong>
@@ -131,7 +131,7 @@
                                                 <img alt="image" class="img-fluid mx-auto" src="{{ asset('img/'.$attachment->photo) }}" />
                                             </div>
                                         </div>
-                                    @endforeach
+                                        @endforeach
                                     @else
                                         <div class="text-center text-muted py-3">
                                             No records found.
@@ -149,108 +149,83 @@
                                     <h5 class="pt-2">Measurement (in inch)</h5>
                                 </div>
                                 <div class="">
+                                    @php
+                                    $mssizes_data = [];
+                                    $has_xxs = $has_xs = $has_s = $has_m = $has_l = $has_xl = $has_xxl = false;
+                                    foreach ($mssizes as $row)
+                                    {
+                                        $mssizes_data[$row->code]['code']       = $row->code;
+                                        $mssizes_data[$row->code]['name']       = $row->name;
+                                        $mssizes_data[$row->code]['tolerance']  = $row->tolerance;
+                                        if($row->size_id==1){
+                                            $mssizes_data[$row->code]['size_xxs']    = $row->measurement;
+                                            $has_xxs = true;
+                                        }
+                                        else if($row->size_id==2){
+                                            $mssizes_data[$row->code]['size_xs']     = $row->measurement;
+                                            $has_xs = true;
+                                        }
+                                        else if($row->size_id==3){
+                                            $mssizes_data[$row->code]['size_s']      = $row->measurement;
+                                            $has_s = true;
+                                        }
+                                        else if($row->size_id==4){
+                                            $mssizes_data[$row->code]['size_m']      = $row->measurement;
+                                            $has_m = true;
+                                        }
+                                        else if($row->size_id==5){
+                                            $mssizes_data[$row->code]['size_l']      = $row->measurement;
+                                            $has_l = true;
+                                        }
+                                        else if($row->size_id==6){
+                                            $mssizes_data[$row->code]['size_xl']     = $row->measurement;
+                                            $has_xl = true;
+                                        }
+                                        else if($row->size_id==7){
+                                            $mssizes_data[$row->code]['size_xxl']    = $row->measurement;
+                                            $has_xxl = true;
+                                        }
+                                    }
+                                    @endphp
+                                    <!-- <pre>{{ print_r($mssizes_data) }}</pre> -->
+                                    @if($mssizes->isNotEmpty())
                                     <table class="table table-striped table-bordered">
                                         <thead class="border-bottom">
                                             <tr>
                                                 <th>Code</th>
                                                 <th>Name</th>
                                                 <th class="text-center">Tolerance (+/-)</th>
-                                                <th>XS</th>
-                                                <th>M</th>
-                                                <th>L</th>
+                                                @if($has_xxs)<th>XXS</th>@endif
+                                                @if($has_xs)<th>XS</th>@endif
+                                                @if($has_s)<th>S</th>@endif
+                                                @if($has_m)<th>M</th>@endif
+                                                @if($has_l)<th>L</th>@endif
+                                                @if($has_xl)<th>XL</th>@endif
+                                                @if($has_xxl)<th>XXL</th>@endif
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach ($mssizes_data as $code => $row)
                                             <tr>
-                                                <td>A</td>
-                                                <td>Chest bellow armhole</td>
-                                                <td class="text-center">0.5</td>
-                                                <td>18</td>
-                                                <td>20</td>
-                                                <td>21</td>
+                                                <td>{{$code}}</td>
+                                                <td>{{$row['name']}}</td>
+                                                <td class="text-center">{{$row['tolerance']}}</td>
+                                                @if($has_xxs)<td>{{ $row['size_xxs'] ?? '' }}</td>@endif
+                                                @if($has_xs)<td>{{ $row['size_xs'] ?? '' }}</td>@endif
+                                                @if($has_s)<td>{{ $row['size_s'] ?? '' }}</td>@endif
+                                                @if($has_m)<td>{{ $row['size_m'] ?? '' }}</td>@endif
+                                                @if($has_l)<td>{{ $row['size_l'] ?? '' }}</td>@endif
+                                                @if($has_xl)<td>{{ $row['size_xl'] ?? '' }}</td>@endif
+                                                @if($has_xxl)<td>{{ $row['size_xxl'] ?? '' }}</td>@endif
                                             </tr>
-                                            <tr>
-                                                <td>B</td>
-                                                <td>Bottom hem</td>
-                                                <td class="text-center">0.5</td>
-                                                <td>18</td>
-                                                <td>20</td>
-                                                <td>21</td>
-                                            </tr>
-                                            <tr>
-                                                <td>C</td>
-                                                <td>Body length</td>
-                                                <td class="text-center">1</td>
-                                                <td>26</td>
-                                                <td>28</td>
-                                                <td>29</td>
-                                            </tr>
-                                            <tr>
-                                                <td>D</td>
-                                                <td>Across sholder</td>
-                                                <td class="text-center">0.5</td>
-                                                <td>15</td>
-                                                <td>17</td>
-                                                <td>18</td>
-                                            </tr>
-                                            <tr>
-                                                <td>E</td>
-                                                <td>Sleeve length</td>
-                                                <td class="text-center">0.5</td>
-                                                <td>7</td>
-                                                <td>8</td>
-                                                <td>8.5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>F</td>
-                                                <td>Sleeve opening</td>
-                                                <td class="text-center">0.25</td>
-                                                <td>5.5</td>
-                                                <td>6</td>
-                                                <td>6.25</td>
-                                            </tr>
-                                            <tr>
-                                                <td>G</td>
-                                                <td>Arm hole</td>
-                                                <td class="text-center">0.25</td>
-                                                <td>8</td>
-                                                <td>9</td>
-                                                <td>9.5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>H</td>
-                                                <td>Neck width</td>
-                                                <td class="text-center">0.25</td>
-                                                <td>6.75</td>
-                                                <td>7</td>
-                                                <td>7</td>
-                                            </tr>
-                                            <tr>
-                                                <td>I</td>
-                                                <td>Neck drop</td>
-                                                <td class="text-center">0.25</td>
-                                                <td>2.25</td>
-                                                <td>2.5</td>
-                                                <td>2.75</td>
-                                            </tr>
-                                            <tr>
-                                                <td>J</td>
-                                                <td>Neck rib high</td>
-                                                <td class="text-center">0.125</td>
-                                                <td>0.75</td>
-                                                <td>0.75</td>
-                                                <td>0.75</td>
-                                            </tr>
-                                            <tr>
-                                                <td>K</td>
-                                                <td>Neck drop (V Neck)</td>
-                                                <td class="text-center">0.125</td>
-                                                <td>4</td>
-                                                <td>4.25</td>
-                                                <td>4.25</td>
-                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
+                                    @else
+                                        <div class="text-center text-muted py-3">
+                                            No records found.
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

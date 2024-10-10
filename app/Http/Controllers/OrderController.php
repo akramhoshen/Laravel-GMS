@@ -41,53 +41,6 @@ class OrderController extends Controller
         return view("pages.order.create",["styles"=>$styles,"buyers"=>$buyers,"sizes"=>$sizes,"status"=>$status]);
     }
 
-    
-    // public function store(Request $request){
-         
-    //     //Order
-    //      $order=new Order;
-         
-    //     // print_r($order);
-
-    //        $order->style_id = $request->cmbStyle;
-    //        $order->buyer_id = $request->cmbBuyer;
-    //        $order->order_date = date("Y-m-d",strtotime($request->txtOrderDate));
-    //        $order->delivery_date = date("Y-m-d",strtotime($request->txtDeliveryDate));
-    //        $order->shipping_address = isset($request->txtShippingAddress)?$request->txtShippingAddress:"NA";
-    //        $order->status_id = $request->cmbStatus;
-    //        $order->order_total = $request->order_total;
-    //        $order->paid_amount = $request->paid_amount;
-    //        $order->remark = isset($request->remark)?$request->remark:"NA";
-    //        $order->discount = isset($request->txtDiscount)?$request->txtDiscount:0;
-    //        $order->vat = isset($request->txtVat)?$request->txtVat:"0";
-           
-    //        $order->save();
-         
-    //     //  //Order Details
-    //     $sizes = $request->txtSizes; 
-        
-    //     foreach($sizes as $size){         
-           
-    //         $order_detail=new OrderDetail;         
-
-    //         $order_detail->order_id = $order->id;
-    //         $order_detail->size_id = $size["item_id"];
-    //         $order_detail->qty = $size["qty"];
-    //         $order_detail->price = $size["price"];            
-    //         $order_detail->discount = isset($size["discount"])?$size["discount"]:0;
-    //         $order_detail->vat = 0;
-
-    //         $order_detail->save();
-    //   }
-
-
-    //      //Stock
-
-
-
-
-    // }
-
     public function store(Request $request){
          
         //Order
@@ -129,8 +82,7 @@ class OrderController extends Controller
 
          //Stock
 
-
-
+        return back()->with('success','Created Successfully.');
 
     }
 
@@ -160,13 +112,29 @@ class OrderController extends Controller
         $style = Style::all();
         $buyer = Buyer::all();
         $status = Statu::all();
-        return view("pages.style.edit",['order'=>$order,'style'=>$style,'buyer'=>$buyer,'status'=>$status]);
+        return view("pages.order.edit",['order'=>$order,'style'=>$style,'buyer'=>$buyer,'status'=>$status]);
     }
 
     
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::where('id',$id)->first();
+
+        $order->style_id = $request->style_id;
+        $order->buyer_id = $request->buyer_id;
+        $order->order_date = date("Y-m-d",strtotime($request->order_date));
+        $order->delivery_date = date("Y-m-d",strtotime($request->delivery_date));
+        $order->shipping_address = isset($request->shipping_address)?$request->shipping_address:"NA";
+        $order->status_id = $request->status_id;
+        $order->order_total = $request->order_total;
+        $order->paid_amount = $request->paid_amount;
+        $order->remark = isset($request->remark)?$request->remark:"NA";
+        $order->discount = isset($request->discount)?$request->discount:0;
+        $order->vat = isset($request->vat)?$request->vat:"0";
+           
+        $order->update();
+
+        return back()->with('success','Updated Successfully.');
     }
 
     

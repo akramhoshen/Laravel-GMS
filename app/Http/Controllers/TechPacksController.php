@@ -91,13 +91,13 @@ class TechPacksController extends Controller
         ->where('s.id', $id)
         ->get();
 
-        // $mssizes = DB::table('measurement_sizes as ms')
-        // ->join('styles as s', 's.id', '=', 'ms.style_id')
-        // ->join('mesurments as m', 'm.id', '=', 'ms.measurement_id')
-        // ->join('sizes as sz', 'sz.id', '=', 'ms.size_id')
-        // ->select('m.code as code','m.name as name','m.tolerance','ms.measurement')
-        // ->where('s.id', $id)
-        // ->get();
+        $mssizes = DB::table('measurement_sizes as ms')
+        ->join('styles as s', 's.id', '=', 'ms.style_id')
+        ->join('mesurments as m', 'm.id', '=', 'ms.measurement_id')
+        ->join('sizes as sz', 'sz.id', '=', 'ms.size_id')
+        ->select('ms.id','m.code as code','m.name as name','m.tolerance','ms.measurement','sz.id as size_id') //ms.id, m.code, m.name, m.tolerance, ms.measurement, sz.id as size_id
+        ->where('s.id', $id)
+        ->get();
 
         // $mssizes = DB::table('mesurments as m')
         // ->join('styles as s', 's.id', '=', 'm.style_id')
@@ -113,7 +113,7 @@ class TechPacksController extends Controller
         // ->get();
 
 
-        return view("pages.tech-pack.show",['style'=>$style,'fabrics'=>$fabrics,'trims'=>$trims,'attachments'=>$attachments]);
+        return view("pages.tech-pack.show",['style'=>$style,'fabrics'=>$fabrics,'trims'=>$trims,'attachments'=>$attachments,'mssizes'=>$mssizes]);
     }
 
     /**

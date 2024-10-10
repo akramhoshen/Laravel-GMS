@@ -26,7 +26,7 @@
       <td>{{$order->id}}</td>
       <td>{{$order->buyer}}</td>
       <td>{{$order->style}}</td>
-      <td>{{$order->date}} <br> {{$order->ddate}}</td>
+      <td>{{ date('Y-m-d', strtotime($order->date)) }} <br> {{ date('Y-m-d', strtotime($order->ddate)) }}</td>
       <td>{{$order->order_total}}</td>
       <td>{{$order->status}}</td>
       <td>

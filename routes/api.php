@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderDetailsController;
+use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\ImageController;
 
 /*
@@ -42,4 +43,6 @@ Route::apiResources([
     'orders'=>OrderController::class,
     'upimages'=>ImageController::class,
     'orderdetails'=>OrderDetailsController::class,
+    'purchases'=>PurchaseController::class,
+    // 'purchases'=>PurchaseController::class,
 ]);
