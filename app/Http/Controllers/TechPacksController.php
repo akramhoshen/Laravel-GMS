@@ -98,19 +98,8 @@ class TechPacksController extends Controller
         ->select('ms.id','m.code as code','m.name as name','m.tolerance','ms.measurement','sz.id as size_id') //ms.id, m.code, m.name, m.tolerance, ms.measurement, sz.id as size_id
         ->where('s.id', $id)
         ->get();
-
-        // $mssizes = DB::table('mesurments as m')
-        // ->join('styles as s', 's.id', '=', 'm.style_id')
-        // ->join('measurement_sizes as ms', 'ms.measurement_id', '=', 'm.id')
-        // ->join('sizes as sz', 'sz.id', '=', 'ms.size_id')
-        // ->select('m.code', 'm.name', 'm.tolerance')
-        // ->where('s.id', $id)
-        // ->get();
-
-        // $measurements = DB::table('measurement_sizes as ms')
-        // ->join('sizes as sz', 'sz.id', '=', 'ms.size_id')
-        // ->select('sz.name as size', 'ms.measurement')
-        // ->get();
+        
+        //echo "<pre>"; print_r($mssizes); echo "</pre>";
 
 
         return view("pages.tech-pack.show",['style'=>$style,'fabrics'=>$fabrics,'trims'=>$trims,'attachments'=>$attachments,'mssizes'=>$mssizes]);

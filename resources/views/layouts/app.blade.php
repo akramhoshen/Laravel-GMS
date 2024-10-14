@@ -72,6 +72,8 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+  <!-- Custom Library js -->
+  <script src="{{asset('js/customLibrary.js')}}"></script>
   <!-- Add to cart js -->
   <script src="{{asset('js/cart.js')}}"></script>
 

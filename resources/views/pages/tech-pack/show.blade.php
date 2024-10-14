@@ -189,35 +189,40 @@
                                     @endphp
                                     <!-- <pre>{{ print_r($mssizes_data) }}</pre> -->
                                     @if($mssizes->isNotEmpty())
-                                    <table class="table table-striped table-bordered">
+                                    <table class="table table-bordered">
                                         <thead class="border-bottom">
                                             <tr>
                                                 <th>Code</th>
                                                 <th>Name</th>
                                                 <th class="text-center">Tolerance (+/-)</th>
-                                                @if($has_xxs)<th>XXS</th>@endif
-                                                @if($has_xs)<th>XS</th>@endif
-                                                @if($has_s)<th>S</th>@endif
-                                                @if($has_m)<th>M</th>@endif
-                                                @if($has_l)<th>L</th>@endif
-                                                @if($has_xl)<th>XL</th>@endif
-                                                @if($has_xxl)<th>XXL</th>@endif
+                                                @if($has_xxs) <th>XXS</th> @endif
+                                                @if($has_xs)  <th>XS</th>  @endif
+                                                @if($has_s)   <th>S</th>   @endif
+                                                @if($has_m)   <th>M</th>   @endif
+                                                @if($has_l)   <th>L</th>   @endif
+                                                @if($has_xl)  <th>XL</th>  @endif
+                                                @if($has_xxl) <th>XXL</th> @endif
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @php $i = 1; @endphp
                                         @foreach ($mssizes_data as $code => $row)
-                                            <tr>
-                                                <td>{{$code}}</td>
-                                                <td>{{$row['name']}}</td>
-                                                <td class="text-center">{{$row['tolerance']}}</td>
-                                                @if($has_xxs)<td>{{ $row['size_xxs'] ?? '' }}</td>@endif
-                                                @if($has_xs)<td>{{ $row['size_xs'] ?? '' }}</td>@endif
-                                                @if($has_s)<td>{{ $row['size_s'] ?? '' }}</td>@endif
-                                                @if($has_m)<td>{{ $row['size_m'] ?? '' }}</td>@endif
-                                                @if($has_l)<td>{{ $row['size_l'] ?? '' }}</td>@endif
-                                                @if($has_xl)<td>{{ $row['size_xl'] ?? '' }}</td>@endif
-                                                @if($has_xxl)<td>{{ $row['size_xxl'] ?? '' }}</td>@endif
+                                        @php $bgcolor = ($i % 2 == 0) ? "#E9F3FF" : "#FFFFFF";
+                                        $style = "background-color: " . htmlspecialchars($bgcolor) . ";";
+                                        @endphp
+                                            <tr onClick="change_row_color('tr_{{ $i }}', '{{ $bgcolor }}')" id="tr_{{ $i }}">
+                                                <td style="{{$style}}">{{$code}}</td>
+                                                <td style="{{$style}}">{{$row['name']}}</td>
+                                                <td style="{{$style}}" class="text-center">{{$row['tolerance']}}</td>
+                                                @if($has_xxs) <td style="{{$style}}">{{ $row['size_xxs'] ?? '' }}</td> @endif
+                                                @if($has_xs)  <td style="{{$style}}">{{ $row['size_xs'] ?? '' }}</td>  @endif
+                                                @if($has_s)   <td style="{{$style}}">{{ $row['size_s'] ?? '' }}</td>   @endif
+                                                @if($has_m)   <td style="{{$style}}">{{ $row['size_m'] ?? '' }}</td>   @endif
+                                                @if($has_l)   <td style="{{$style}}">{{ $row['size_l'] ?? '' }}</td>   @endif
+                                                @if($has_xl)  <td style="{{$style}}">{{ $row['size_xl'] ?? '' }}</td>  @endif
+                                                @if($has_xxl) <td style="{{$style}}">{{ $row['size_xxl'] ?? '' }}</td> @endif
                                             </tr>
+                                            @php $i++; @endphp
                                         @endforeach
                                         </tbody>
                                     </table>
