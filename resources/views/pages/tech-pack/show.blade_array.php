@@ -149,7 +149,46 @@
                                     <h5 class="pt-2">Measurement (in inch)</h5>
                                 </div>
                                 <div class="">
-                                    @if(!empty($mssizes_data))
+                                    @php
+                                    $mssizes_data = [];
+                                    $has_xxs = $has_xs = $has_s = $has_m = $has_l = $has_xl = $has_xxl = false; //for check measurement size data and showing column based on this
+                                    foreach ($mssizes as $row)
+                                    {
+                                        $mssizes_data[$row->code]['code']       = $row->code;
+                                        $mssizes_data[$row->code]['name']       = $row->name;
+                                        $mssizes_data[$row->code]['tolerance']  = $row->tolerance;
+                                        if($row->size_id==1){
+                                            $mssizes_data[$row->code]['size_xxs']    = $row->measurement;
+                                            $has_xxs = true;
+                                        }
+                                        else if($row->size_id==2){
+                                            $mssizes_data[$row->code]['size_xs']     = $row->measurement;
+                                            $has_xs = true;
+                                        }
+                                        else if($row->size_id==3){
+                                            $mssizes_data[$row->code]['size_s']      = $row->measurement;
+                                            $has_s = true;
+                                        }
+                                        else if($row->size_id==4){
+                                            $mssizes_data[$row->code]['size_m']      = $row->measurement;
+                                            $has_m = true;
+                                        }
+                                        else if($row->size_id==5){
+                                            $mssizes_data[$row->code]['size_l']      = $row->measurement;
+                                            $has_l = true;
+                                        }
+                                        else if($row->size_id==6){
+                                            $mssizes_data[$row->code]['size_xl']     = $row->measurement;
+                                            $has_xl = true;
+                                        }
+                                        else if($row->size_id==7){
+                                            $mssizes_data[$row->code]['size_xxl']    = $row->measurement;
+                                            $has_xxl = true;
+                                        }
+                                    }
+                                    @endphp
+                                    <!-- <pre>{{ print_r($mssizes_data) }}</pre> -->
+                                    @if($mssizes->isNotEmpty())
                                     <table class="table table-bordered">
                                         <thead class="border-bottom">
                                             <tr>

@@ -101,8 +101,55 @@ class TechPacksController extends Controller
         
         //echo "<pre>"; print_r($mssizes); echo "</pre>";
 
+        $mssizes_data = [];
+        $has_xxs = $has_xs = $has_s = $has_m = $has_l = $has_xl = $has_xxl = false;
 
-        return view("pages.tech-pack.show",['style'=>$style,'fabrics'=>$fabrics,'trims'=>$trims,'attachments'=>$attachments,'mssizes'=>$mssizes]);
+        foreach ($mssizes as $row)  //make each measurement size row
+        {
+            $mssizes_data[$row->code]['code']      = $row->code;
+            $mssizes_data[$row->code]['name']      = $row->name;
+            $mssizes_data[$row->code]['tolerance'] = $row->tolerance;
+
+            if ($row->size_id == 1) {
+                $mssizes_data[$row->code]['size_xxs'] = $row->measurement;
+                $has_xxs = true;
+            } elseif ($row->size_id == 2) {
+                $mssizes_data[$row->code]['size_xs']  = $row->measurement;
+                $has_xs = true;
+            } elseif ($row->size_id == 3) {
+                $mssizes_data[$row->code]['size_s']   = $row->measurement;
+                $has_s = true;
+            } elseif ($row->size_id == 4) {
+                $mssizes_data[$row->code]['size_m']   = $row->measurement;
+                $has_m = true;
+            } elseif ($row->size_id == 5) {
+                $mssizes_data[$row->code]['size_l']   = $row->measurement;
+                $has_l = true;
+            } elseif ($row->size_id == 6) {
+                $mssizes_data[$row->code]['size_xl']  = $row->measurement;
+                $has_xl = true;
+            } elseif ($row->size_id == 7) {
+                $mssizes_data[$row->code]['size_xxl'] = $row->measurement;
+                $has_xxl = true;
+            }
+        }
+
+        return view('pages.tech-pack.show', [
+            'style'       => $style,
+            'fabrics'     => $fabrics,
+            'trims'       => $trims,
+            'attachments' => $attachments,
+            'mssizes_data'=> $mssizes_data,
+            'has_xxs'     => $has_xxs,
+            'has_xs'      => $has_xs,
+            'has_s'       => $has_s,
+            'has_m'       => $has_m,
+            'has_l'       => $has_l,
+            'has_xl'      => $has_xl,
+            'has_xxl'     => $has_xxl
+        ]);
+
+        //return view("pages.tech-pack.show",['style'=>$style,'fabrics'=>$fabrics,'trims'=>$trims,'attachments'=>$attachments,'mssizes'=>$mssizes]);
     }
 
     /**
